@@ -481,8 +481,11 @@ def risk_management_agent(state: AgentState):
     # Print the decision if the flag is set
     if show_reasoning:
         show_agent_reasoning(message_content, "Risk Management Agent")
-
-    return {"messages": state["messages"] + [message]}
+   
+    return {
+        "messages": [message]
+    }
+    #return {"messages": state["messages"] + [message]}
 
 
 ##### Portfolio Management Agent #####
@@ -490,6 +493,7 @@ def portfolio_management_agent(state: AgentState):
     """Makes final trading decisions and generates orders"""
     show_reasoning = state["metadata"]["show_reasoning"]
     portfolio = state["data"]["portfolio"]
+
 
     # Get the quant agent, fundamentals agent, and risk management agent messages
     quant_message = next(msg for msg in state["messages"] if msg.name == "quant_agent")
@@ -578,7 +582,9 @@ def portfolio_management_agent(state: AgentState):
     if show_reasoning:
         show_agent_reasoning(message_content, "Portfolio Management Agent")
 
-    return {"messages": state["messages"] + [message]}
+    return {
+     "messages": [message]
+    }
 
 def show_agent_reasoning(output, agent_name):
     print(f"\n{'=' * 10} {agent_name.center(28)} {'=' * 10}")
